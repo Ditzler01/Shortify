@@ -90,13 +90,14 @@ app.get("/:slug", async (req, res) =>
       .where({ slug: slug })
       .first() as UrlReturnType;
 
+    // Slug not found
+    if (!urlEntry)
+      return res.redirect(`${process.env.CLIENT_BASE_URL || "http://localhost:3000"}/not-found`);
+
     // Slug expired
     if (!!urlEntry.expiration_date && new Date(urlEntry.expiration_date) < new Date())
       return res.redirect(`${process.env.CLIENT_BASE_URL || "http://localhost:3000"}/expired`);
 
-    // Slug not found
-    if (!urlEntry)
-      return res.redirect(`${process.env.CLIENT_BASE_URL || "http://localhost:3000"}/not-found`);
 
 
     res.redirect(urlEntry.redirect_url);
