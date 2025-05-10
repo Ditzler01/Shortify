@@ -2,10 +2,10 @@ export type UrlObject = {
   redirect_url: string,
   shortened_url: string,
   slug: string,
-  expiration_date?: number
+  expiration_date?: string
 }
 
 export type UrlReturnType = {
   id: string,
-  created_at: number
+  created_at: string
 } & UrlObject
